@@ -14,7 +14,7 @@ export default function DashboardLayout({
       <header className="bg-slate-900/50 backdrop-blur-lg border-b border-white/10 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/dashboard" className="flex items-center space-x-2">
-            <Image src="/logo.png" alt="Logo" width={9} height={9} />
+            <Image src="/logo.png" alt="Logo" width={35} height={35} />
             <span className="text-xl font-bold text-white">Obscura</span>
           </Link>
           

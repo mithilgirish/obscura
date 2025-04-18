@@ -16,7 +16,10 @@ The app is built with Next.js for the frontend and API routes, MongoDB for data 
 - `DELETE /api/books/[id]` - Delete a book
 
 ## Screenshots:
+![Screenshot from 2025-04-19 01-09-06](https://github.com/user-attachments/assets/faf64d8e-1778-45f5-a7aa-c4bae15cdffe)
+
 
 ![Screenshot from 2025-04-19 00-54-45](https://github.com/user-attachments/assets/6537ee9b-2007-4069-b1c6-c1379553b874)
 ![Screenshot from 2025-04-19 00-55-01](https://github.com/user-attachments/assets/a1f81049-88ab-4b2d-a0c6-0ee61b66ccda)
 ![Screenshot from 2025-04-19 00-55-58](https://github.com/user-attachments/assets/53367df0-3a3a-4b7f-94d8-f6e6957d6737)
+![Screenshot from 2025-04-19 01-08-32](https://github.com/user-attachments/assets/b0929664-0570-4b40-906b-1b0ad8012389)

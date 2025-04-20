@@ -87,7 +87,7 @@ export default function Dashboard() {
       
       // Update local state
       setBooks(books.map(book => 
-        book._id === id ? { ...book, ...updatedBook } as IBook : book
+        book.id === id ? { ...book, ...updatedBook } as IBook : book
       ));
       
       return data;
@@ -100,6 +100,11 @@ export default function Dashboard() {
   };
   
   const handleDeleteBook = async (id: string) => {
+    if (!id) {
+      console.error('Cannot delete book with undefined ID');
+      return;
+    }
+    
     if (!confirm('Are you sure you want to delete this book?')) {
       return;
     }
@@ -107,20 +112,28 @@ export default function Dashboard() {
     try {
       const response = await fetch(`/api/books/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
       
+      // For non-OK responses, try to parse error message
       if (!response.ok) {
-        const data: { error: string } = await response.json();
-        throw new Error(data.error || 'Failed to delete book');
+        // Only try to parse JSON if there's content
+        if (response.headers.get('content-length') !== '0') {
+          const data = await response.json();
+          throw new Error(data.error || 'Failed to delete book');
+        } else {
+          throw new Error(`Failed to delete book: ${response.status} ${response.statusText}`);
+        }
       }
       
       // Update local state
-      setBooks(books.filter(book => book._id !== id));
-    } catch (err: unknown) {
-        const error = err as Error;
-        setError(error.message);
-        console.error('Error updating book:', error);
-        throw error;
+      setBooks(books.filter(book => book.id !== id));
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message);
+      console.error('Error deleting book:', error);
     }
   };
   

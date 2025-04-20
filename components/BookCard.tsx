@@ -16,8 +16,8 @@ import EditBookDialog from './EditBookDialog';
 
 interface BookCardProps {
   book: IBook;
-  onDelete: (id: string) => void;
-  onUpdate: (id: string, updatedBook: Partial<IBook>) => void;
+  onDelete: (_id: string) => void;
+  onUpdate: (_id: string, updatedBook: Partial<IBook>) => void;
 }
 
 export default function BookCard({ book, onDelete, onUpdate }: BookCardProps) {
@@ -76,7 +76,16 @@ export default function BookCard({ book, onDelete, onUpdate }: BookCardProps) {
               <Button 
                 variant="destructive" 
                 size="sm" 
-                onClick={() => onDelete(book.id)}
+                onClick={() => {
+                  if (typeof book._id === 'string') {
+                    onDelete(book._id);
+                    window.location.reload();
+                  } else {
+                    console.error('Cannot delete book: ID is undefined');
+                  }
+                }}
+                
+                
                 className="bg-red-900/30 hover:bg-red-800/50 text-red-200 border-red-900/50"
               >
                 <Trash2 className="h-4 w-4 mr-1" />
@@ -92,7 +101,12 @@ export default function BookCard({ book, onDelete, onUpdate }: BookCardProps) {
         open={isEditOpen}
         onOpenChange={setIsEditOpen}
         onSave={(updatedBook) => {
-          onUpdate(book.id, updatedBook);
+          if (typeof book._id === 'string') {
+            onUpdate(book._id, updatedBook);
+            window.location.reload();
+          } else {
+            console.error('Cannot update book: ID is undefined');
+          }
           setIsEditOpen(false);
         }}
       />
